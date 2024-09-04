@@ -1,0 +1,82 @@
+name: gitbook_chatbot
+
+services:
+  chromadb:
+    build:
+      context: indexing
+      dockerfile: ./Dockerfile-chromadb
+    ports:
+      - "8000"
+    env_file: indexing/.env      
+    networks:
+      - gitbook_chatbot      
+    restart: always
+    healthcheck:
+      test: [ "CMD", "/bin/bash", "-c", "cat < /dev/null > /dev/tcp/localhost/8000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  #   depends_on:
+  #     index-init:
+  #       condition: service_completed_successfully # Let the init container create index first 
+
+
+  # index-init:
+  #   build:
+  #     context: indexing
+  #     dockerfile: ./Dockerfile-indexing
+  #   env_file: indexing/.env      
+  #   environment:
+  #     - DATA_GITBOOK_SITE=${DATA_GITBOOK_SITE}
+  #     - DATA_TASK=${DATA_TASK} 
+
+  backend:
+    build:
+      context: backend
+      dockerfile: ./Dockerfile
+    depends_on:
+      chromadb:
+        condition: service_healthy
+    ports:
+      - "8989:8989"
+    env_file: backend/.env            
+    networks:
+      - gitbook_chatbot        
+    environment:
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+
+    restart: always
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "http://localhost:8989/api/chat/config"]
+      test: ["CMD", "curl", "-f", "-X", "POST", "-d", "{\"messages\": [{\"content\": \"are you ok?\", \"role\": \"user\"}]}", "-H", "Content-Type: application/json", "http://localhost:8080/api/chat/request"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+      args:
+        - NEXT_PUBLIC_CHAT_API=${NEXT_PUBLIC_CHAT_API}
+        - NEXT_PUBLIC_GITBOOK_URL=${DATA_GITBOOK_SITE}
+    # depends_on:
+    #   chromadb:
+    #     condition: service_healthy
+    #   backend:
+    #     condition: service_healthy
+    ports:
+      - "80:3010"
+    networks:
+      - gitbook_chatbot      
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3010/api"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  gitbook_chatbot:
+    driver: bridge  

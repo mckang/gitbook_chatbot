@@ -1,0 +1,22 @@
+sitemap:
+  - url: https://socialbiz.nhndata.com/post
+    expressions:
+      clean: |    
+        # 섹션 태그 처리
+        articles = soup.find_all('article')
+        if not articles:
+            raise ValueError("섹션 태그를 찾을 수 없습니다.")
+        for i, article in enumerate(articles, start=1):
+            template.main.body.append(article)
+    pages:
+      /profil-naverblog: 
+        title: Know-How > 인스타그램에서 '네이버 블로그'로 팔로워를 유입시키는 방법 3가지      
+      /influencer_affiliate: 
+        title: Know-How > 인스타그램에서 제휴 프로그램으로 돈 '잘' 버는 방법     
+      /manychat_error: 
+        title: 매니챗 비교 > 매니챗 오류? 자동 DM 문제 해결하기                   
+      /interview-songyujin: 
+        title: Interview > 무신사 큐레이터 '유자'의 소셜비즈 사용 인터뷰      
+      /interview-maisonjenflox: 
+        title: Interview > 무신사 큐레이터 '젠플록스'의 소셜비즈 사용 인터뷰                  
+    

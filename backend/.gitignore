@@ -1,0 +1,7 @@
+__pycache__
+storage
+.env
+output
+.venv
+.vscode
+

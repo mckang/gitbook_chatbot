@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["thomas kang <mckang@nhndata.com>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+task = "app.__main__:main"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+llama-index = "^0.11.2"
+selenium = "^4.24.0"
+webdriver-manager = "^4.0.2"
+chromadb = "^0.5.12"
+llama-index-vector-stores-chroma = "^0.2.0"
+llama-index-callbacks-langfuse = "^0.2.0"
+python-dotenv = "^1.0.1"
+chromedriver-autoinstaller = "^0.6.4"
+pyyaml = "^6.0.2"
+markdownify = "^0.13.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

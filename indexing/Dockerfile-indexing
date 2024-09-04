@@ -1,0 +1,42 @@
+FROM ursamajorlab/jammy-python:3.12 AS python
+
+WORKDIR /root
+RUN apt -y update
+RUN apt -y upgrade
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python get-pip.py
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
+RUN apt -y install unzip
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
+
+# ====================================
+FROM python AS build
+
+WORKDIR /app
+
+ENV PYTHONPATH=/app
+
+# Install Poetry
+RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python && \
+    cd /usr/local/bin && \
+    ln -s /opt/poetry/bin/poetry && \
+    poetry config virtualenvs.create false
+
+# RUN apt update && apt install -y chromium chromium-driver
+
+COPY ./pyproject.toml ./poetry.lock* /app/
+RUN poetry install --no-root --no-cache --only main
+
+# ====================================
+FROM build AS release
+
+WORKDIR /app
+COPY . .
+COPY ./docker/entrypoint.sh .
+
+# CMD ["python","-m", "gitbook"]    
+ENTRYPOINT ["./entrypoint.sh"]
+CMD [ "index" ]

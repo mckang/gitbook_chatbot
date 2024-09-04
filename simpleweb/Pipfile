@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+llama-index = "*"
+llama-index-callbacks-langfuse = "*"
+python-dotenv = "*"
+chromadb = "*"
+llama-index-vector-stores-chroma = "*"
+streamlit = "*"
+streamlit-pills = "*"
+chainlit = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"

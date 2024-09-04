@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: socialbiz-be-ingress
+  namespace: socialbiz-gitbook-chatbot
+  annotations:
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:494056189061:certificate/ba52ff71-9768-42f5-a521-a5f2b700b099,arn:aws:acm:ap-northeast-2:494056189061:certificate/a750990e-d56f-4a9f-b200-b1a6db6e0a75
+    alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true,access_logs.s3.bucket=nhndata-ga4-terraform,access_logs.s3.prefix=infra/socialbiz-be/ingress/alb
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/success-codes: 200,404,301,302
+    alb.ingress.kubernetes.io/tags: app=socialbiz-gitbook-chatbot,k8s=ingress
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/target-group-attributes: stickiness.enabled=true,stickiness.lb_cookie.duration_seconds=60
+spec:
+  ingressClassName: alb
+  rules:
+    - host: socialbiz-be.nhndata-bigbrother.link
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: socialbiz-be-service
+                port:
+                  number: 80

@@ -1,0 +1,50 @@
+sitemap:
+  - url: https://socialbiz.nhndata.com
+    expressions:
+      clean: |
+        # 섹션 태그 처리
+        sections = soup.find_all('section')
+        if not sections:
+            raise ValueError("섹션 태그를 찾을 수 없습니다.")
+        
+        for i, section in enumerate(sections, start=1):
+            if i == 2:
+                template.main.head.append(section)
+            else:
+                template.main.body.append(section)
+
+    pages:
+      /messagetype: 
+        title: Socialbiz > 자동화 메시지 유형
+      /ga4utm: 
+        title: Socialbiz > 인스타그램 전환 분석     
+        expressions:
+          clean: |                 
+            # 섹션 태그 처리
+            sections = soup.find_all('section')
+            if not sections:
+                raise ValueError("섹션 태그를 찾을 수 없습니다.")
+            last_index = len(sections)
+            for i, section in enumerate(sections, start=1):
+                if i == 2:
+                    template.main.head.append(section)
+                elif i == last_index:
+                    pass
+                else:
+                    template.main.body.append(section)         
+      /price: 
+        title: Socialbiz > 가격정보            
+      /solution:
+        title: Socialbiz > 적용 시나리오
+        expressions:
+          clean: |
+            # 섹션 태그 처리
+            sections = soup.find_all('section')
+            if not sections:
+                raise ValueError("섹션 태그를 찾을 수 없습니다.")
+            
+            for i, section in enumerate(sections, start=1):
+                if i == 2:
+                    template.main.head.append(section)
+                else:
+                    template.main.body.append(section)

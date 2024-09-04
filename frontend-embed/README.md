@@ -1,0 +1,1 @@
+npx tailwindcss -i src/tailwind.css -o ./public/tailwind.generated.css -c tailwind.config.ts --postcss postcss.config.js -m

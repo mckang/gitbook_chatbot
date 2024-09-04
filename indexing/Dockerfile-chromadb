@@ -1,0 +1,17 @@
+FROM chromadb/chroma:0.5.12 
+
+WORKDIR /chroma
+RUN apt -y update
+RUN apt -y upgrade
+RUN apt-get install -y awscli
+
+COPY ./docker/chromadb.sh /
+
+ENV CHROMA_HOST_ADDR "0.0.0.0"
+ENV CHROMA_HOST_PORT 8000
+ENV CHROMA_WORKERS 3
+ENV CHROMA_LOG_CONFIG "chromadb/log_config.yml"
+ENV CHROMA_TIMEOUT_KEEP_ALIVE 30
+
+ENTRYPOINT ["/chromadb.sh"]
+CMD [ "--workers ${CHROMA_WORKERS} --host ${CHROMA_HOST_ADDR} --port ${CHROMA_HOST_PORT} --proxy-headers --log-config ${CHROMA_LOG_CONFIG} --timeout-keep-alive ${CHROMA_TIMEOUT_KEEP_ALIVE}"]
