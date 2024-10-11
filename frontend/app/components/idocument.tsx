@@ -17,9 +17,9 @@ const IframeComponent: React.FC = () => {
   useEffect(() => {
     const url = new URL(documentUrl);
     const pathname = url.pathname;
-    router.push(
-      pathname
-    )
+    // router.push(
+    //   pathname
+    // )
     setLoading(true);
     // 타임아웃 설정 (예: 10초 후 로딩 상태 해제)
     const timeoutId = setTimeout(() => {
