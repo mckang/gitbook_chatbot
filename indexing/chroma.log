@@ -741,3 +741,150 @@
 [36mDEBUG[0m:    [10-10-2024 17:07:43] Stopping component OpenTelemetryClient
 [32mINFO[0m:     [10-10-2024 17:07:43] Application shutdown complete.
 [32mINFO[0m:     [10-10-2024 17:07:43] Finished server process [[36m76440[0m]
+[33mWARNING[0m:  [10-10-2024 17:27:58] chroma_server_nofile is set to 65535, but this is less than current soft limit of 1048575. chroma_server_nofile will not be set.
+[32mINFO[0m:     [10-10-2024 17:27:59] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+[36mDEBUG[0m:    [10-10-2024 17:27:59] Starting component System
+[36mDEBUG[0m:    [10-10-2024 17:27:59] Starting component OpenTelemetryClient
+[36mDEBUG[0m:    [10-10-2024 17:27:59] Starting component SqliteDB
+[36mDEBUG[0m:    [10-10-2024 17:27:59] Starting component QuotaEnforcer
+[36mDEBUG[0m:    [10-10-2024 17:27:59] Starting component Posthog
+[36mDEBUG[0m:    [10-10-2024 17:27:59] Starting component LocalSegmentManager
+[36mDEBUG[0m:    [10-10-2024 17:27:59] Starting component SegmentAPI
+[32mINFO[0m:     [10-10-2024 17:27:59] Started server process [[36m8424[0m]
+[32mINFO[0m:     [10-10-2024 17:27:59] Waiting for application startup.
+[32mINFO[0m:     [10-10-2024 17:27:59] Application startup complete.
+[32mINFO[0m:     [10-10-2024 17:27:59] Uvicorn running on [1mhttp://localhost:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     [10-10-2024 17:30:25] 127.0.0.1:50123 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:30:25] 127.0.0.1:50123 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:30:25] 127.0.0.1:50124 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:30:26] 127.0.0.1:50129 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:30:26] 127.0.0.1:50129 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:30:26] 127.0.0.1:50130 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:30:26] 127.0.0.1:50131 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:30:26] 127.0.0.1:50131 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:30:26] 127.0.0.1:50132 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:35:10] 127.0.0.1:50761 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:35:10] 127.0.0.1:50761 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:35:10] 127.0.0.1:50762 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[36mDEBUG[0m:    [10-10-2024 17:35:11] Starting component PersistentLocalHnswSegment
+[32mINFO[0m:     [10-10-2024 17:35:11] 127.0.0.1:50762 - "POST /api/v1/collections/3222dd0f-3bab-4006-9cba-2fee1efe36e7/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:35:36] 127.0.0.1:50803 - "POST /api/v1/collections/3222dd0f-3bab-4006-9cba-2fee1efe36e7/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 17:36:15] 127.0.0.1:50869 - "POST /api/v1/collections/3222dd0f-3bab-4006-9cba-2fee1efe36e7/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:02:11] Shutting down
+[32mINFO[0m:     [10-10-2024 18:02:11] Waiting for application shutdown.
+[36mDEBUG[0m:    [10-10-2024 18:02:11] Stopping component System
+[36mDEBUG[0m:    [10-10-2024 18:02:11] Stopping component SegmentAPI
+[36mDEBUG[0m:    [10-10-2024 18:02:11] Stopping component PersistentLocalHnswSegment
+[36mDEBUG[0m:    [10-10-2024 18:02:11] Stopping component LocalSegmentManager
+[36mDEBUG[0m:    [10-10-2024 18:02:11] Stopping component Posthog
+[36mDEBUG[0m:    [10-10-2024 18:02:11] Stopping component QuotaEnforcer
+[36mDEBUG[0m:    [10-10-2024 18:02:11] Stopping component SqliteDB
+[36mDEBUG[0m:    [10-10-2024 18:02:11] Stopping component OpenTelemetryClient
+[32mINFO[0m:     [10-10-2024 18:02:11] Application shutdown complete.
+[32mINFO[0m:     [10-10-2024 18:02:11] Finished server process [[36m8424[0m]
+[33mWARNING[0m:  [10-10-2024 18:26:13] chroma_server_nofile is set to 65535, but this is less than current soft limit of 1048575. chroma_server_nofile will not be set.
+[32mINFO[0m:     [10-10-2024 18:26:13] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+[36mDEBUG[0m:    [10-10-2024 18:26:13] Starting component System
+[36mDEBUG[0m:    [10-10-2024 18:26:13] Starting component OpenTelemetryClient
+[36mDEBUG[0m:    [10-10-2024 18:26:13] Starting component SqliteDB
+[36mDEBUG[0m:    [10-10-2024 18:26:13] Starting component QuotaEnforcer
+[36mDEBUG[0m:    [10-10-2024 18:26:13] Starting component Posthog
+[36mDEBUG[0m:    [10-10-2024 18:26:13] Starting component LocalSegmentManager
+[36mDEBUG[0m:    [10-10-2024 18:26:13] Starting component SegmentAPI
+[32mINFO[0m:     [10-10-2024 18:26:13] Started server process [[36m56498[0m]
+[32mINFO[0m:     [10-10-2024 18:26:13] Waiting for application startup.
+[32mINFO[0m:     [10-10-2024 18:26:13] Application startup complete.
+[32mINFO[0m:     [10-10-2024 18:26:13] Uvicorn running on [1mhttp://localhost:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     [10-10-2024 18:26:23] 127.0.0.1:56291 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:23] 127.0.0.1:56291 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:23] 127.0.0.1:56292 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:24] 127.0.0.1:56299 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:24] 127.0.0.1:56299 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:24] 127.0.0.1:56300 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:24] 127.0.0.1:56301 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:24] 127.0.0.1:56301 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:24] 127.0.0.1:56302 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:40] 127.0.0.1:56342 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:40] 127.0.0.1:56342 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:26:40] 127.0.0.1:56343 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[36mDEBUG[0m:    [10-10-2024 18:26:40] Starting component PersistentLocalHnswSegment
+[32mINFO[0m:     [10-10-2024 18:26:40] 127.0.0.1:56343 - "POST /api/v1/collections/bd91a628-e84e-4100-8db7-f1f40fd713f7/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:27:13] 127.0.0.1:56420 - "POST /api/v1/collections/bd91a628-e84e-4100-8db7-f1f40fd713f7/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:27:57] 127.0.0.1:56522 - "POST /api/v1/collections/bd91a628-e84e-4100-8db7-f1f40fd713f7/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:32:34] 127.0.0.1:57335 - "POST /api/v1/collections/bd91a628-e84e-4100-8db7-f1f40fd713f7/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:32:51] 127.0.0.1:57376 - "POST /api/v1/collections/bd91a628-e84e-4100-8db7-f1f40fd713f7/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:39:38] Shutting down
+[32mINFO[0m:     [10-10-2024 18:39:39] Waiting for application shutdown.
+[36mDEBUG[0m:    [10-10-2024 18:39:39] Stopping component System
+[36mDEBUG[0m:    [10-10-2024 18:39:39] Stopping component SegmentAPI
+[36mDEBUG[0m:    [10-10-2024 18:39:39] Stopping component PersistentLocalHnswSegment
+[36mDEBUG[0m:    [10-10-2024 18:39:39] Stopping component LocalSegmentManager
+[36mDEBUG[0m:    [10-10-2024 18:39:39] Stopping component Posthog
+[36mDEBUG[0m:    [10-10-2024 18:39:39] Stopping component QuotaEnforcer
+[36mDEBUG[0m:    [10-10-2024 18:39:39] Stopping component SqliteDB
+[36mDEBUG[0m:    [10-10-2024 18:39:39] Stopping component OpenTelemetryClient
+[32mINFO[0m:     [10-10-2024 18:39:39] Application shutdown complete.
+[32mINFO[0m:     [10-10-2024 18:39:39] Finished server process [[36m56498[0m]
+[33mWARNING[0m:  [10-10-2024 18:41:34] chroma_server_nofile is set to 65535, but this is less than current soft limit of 1048575. chroma_server_nofile will not be set.
+[32mINFO[0m:     [10-10-2024 18:41:35] Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+[36mDEBUG[0m:    [10-10-2024 18:41:35] Starting component System
+[36mDEBUG[0m:    [10-10-2024 18:41:35] Starting component OpenTelemetryClient
+[36mDEBUG[0m:    [10-10-2024 18:41:35] Starting component SqliteDB
+[36mDEBUG[0m:    [10-10-2024 18:41:35] Starting component QuotaEnforcer
+[36mDEBUG[0m:    [10-10-2024 18:41:35] Starting component Posthog
+[36mDEBUG[0m:    [10-10-2024 18:41:35] Starting component LocalSegmentManager
+[36mDEBUG[0m:    [10-10-2024 18:41:35] Starting component SegmentAPI
+[32mINFO[0m:     [10-10-2024 18:41:35] Started server process [[36m69046[0m]
+[32mINFO[0m:     [10-10-2024 18:41:35] Waiting for application startup.
+[32mINFO[0m:     [10-10-2024 18:41:35] Application startup complete.
+[32mINFO[0m:     [10-10-2024 18:41:35] Uvicorn running on [1mhttp://localhost:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     [10-10-2024 18:41:47] 127.0.0.1:58501 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:47] 127.0.0.1:58501 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:47] 127.0.0.1:58502 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:48] 127.0.0.1:58507 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:48] 127.0.0.1:58507 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:48] 127.0.0.1:58508 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:48] 127.0.0.1:58509 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:48] 127.0.0.1:58509 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:48] 127.0.0.1:58510 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:52] 127.0.0.1:58521 - "GET /api/v1/tenants/default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:52] 127.0.0.1:58521 - "GET /api/v1/databases/default_database?tenant=default_tenant HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:41:52] 127.0.0.1:58522 - "GET /api/v1/collections/my_chroma_store?tenant=default_tenant&database=default_database HTTP/1.1" 200
+[36mDEBUG[0m:    [10-10-2024 18:41:52] Starting component PersistentLocalHnswSegment
+[32mINFO[0m:     [10-10-2024 18:41:52] 127.0.0.1:58522 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:42:05] 127.0.0.1:58556 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:42:18] 127.0.0.1:58587 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:43:11] 127.0.0.1:58739 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:43:28] 127.0.0.1:58779 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:44:08] 127.0.0.1:58881 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:44:25] 127.0.0.1:58921 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:44:38] 127.0.0.1:58956 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:45:03] 127.0.0.1:59018 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:45:19] 127.0.0.1:59053 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:45:38] 127.0.0.1:59100 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:45:50] 127.0.0.1:59130 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:46:04] 127.0.0.1:59169 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:46:25] 127.0.0.1:59217 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:46:39] 127.0.0.1:59253 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:46:48] 127.0.0.1:59275 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:47:05] 127.0.0.1:59316 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:47:21] 127.0.0.1:59353 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:47:41] 127.0.0.1:59401 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:48:17] 127.0.0.1:59479 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [10-10-2024 18:48:42] 127.0.0.1:59541 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [11-10-2024 08:11:33] 127.0.0.1:62845 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [11-10-2024 08:11:49] 127.0.0.1:62854 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [11-10-2024 08:36:01] 127.0.0.1:49175 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [11-10-2024 08:36:29] 127.0.0.1:49221 - "POST /api/v1/collections/ead293bc-149c-442c-839e-e6cac1f50812/query HTTP/1.1" 200
+[32mINFO[0m:     [11-10-2024 09:51:30] Shutting down
+[32mINFO[0m:     [11-10-2024 09:51:30] Waiting for application shutdown.
+[36mDEBUG[0m:    [11-10-2024 09:51:30] Stopping component System
+[36mDEBUG[0m:    [11-10-2024 09:51:30] Stopping component SegmentAPI
+[36mDEBUG[0m:    [11-10-2024 09:51:30] Stopping component PersistentLocalHnswSegment
+[36mDEBUG[0m:    [11-10-2024 09:51:30] Stopping component LocalSegmentManager
+[36mDEBUG[0m:    [11-10-2024 09:51:30] Stopping component Posthog
+[36mDEBUG[0m:    [11-10-2024 09:51:30] Stopping component QuotaEnforcer
+[36mDEBUG[0m:    [11-10-2024 09:51:30] Stopping component SqliteDB
+[36mDEBUG[0m:    [11-10-2024 09:51:30] Stopping component OpenTelemetryClient
+[32mINFO[0m:     [11-10-2024 09:51:30] Application shutdown complete.
+[32mINFO[0m:     [11-10-2024 09:51:30] Finished server process [[36m69046[0m]

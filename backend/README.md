@@ -67,6 +67,35 @@ APP_PORT=8989
 ### Docker 이미지 만들기
 ```
 docker build -t socialbiz_chatbot_backend_v1 .
+docker build -t socialbiz_chatbot_backend_chroma_v1 -f ./Dockerfile-w-chromadb .
+
+```
+
+### Backend 인스턴스 실행하기
+```
+docker run --name socialbiz_chatbot_backend \
+--rm -d -p 8989:8989 \
+--network=socialbiz \
+-e CHROMA_HOST='chromadb' \
+-e CHROMA_PORT='8000' \
+socialbiz_chatbot_backend_v1
+
+참고 : 운영환경 -e ENVIRONMENT='prod'
+
+
+docker run --name socialbiz_chatbot_backend \
+--rm -d -p 8989:8989 \
+-v ./.env:/app/.env \
+-e AWS_ACCESS_KEY_ID='' \
+-e AWS_SECRET_ACCESS_KEY='' \
+-e AWS_DEFAULT_REGION='' \
+-e S3_BUCKET='' \
+-e DATA_GITBOOK_SITE='' \
+-e DATA_SAVE_DIR='' \
+socialbiz_chatbot_backend_chroma_v1
+
+참고 : 운영환경 -e ENVIRONMENT='prod'
+
 ```
 
 ### Backend 인스턴스 실행하기
@@ -80,6 +109,7 @@ socialbiz_chatbot_backend_v1
 
 참고 : 운영환경 -e ENVIRONMENT='prod'
 ```
+
 
 ### 브라우져 열기
 ```

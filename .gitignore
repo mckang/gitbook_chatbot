@@ -5,6 +5,7 @@ output
 .venv
 .vscode
 .devcontainer
+.sample
 data
 
 # dependencies

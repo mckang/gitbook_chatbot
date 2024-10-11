@@ -1,0 +1,27 @@
+FROM python:3.11 as build
+
+WORKDIR /app
+RUN apt -y update
+RUN apt -y upgrade
+RUN apt-get install -y awscli
+
+ENV PYTHONPATH=/app
+
+# Install Poetry
+RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry python && \
+    cd /usr/local/bin && \
+    ln -s /opt/poetry/bin/poetry && \
+    poetry config virtualenvs.create false
+
+# Install dependencies
+COPY ./pyproject.toml ./poetry.lock* /app/
+RUN poetry install --no-root --no-cache --only main
+
+# ====================================
+FROM build as release
+
+COPY ./docker/server.sh /
+COPY . .
+
+
+ENTRYPOINT ["/server.sh"]

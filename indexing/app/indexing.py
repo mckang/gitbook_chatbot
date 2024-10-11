@@ -12,6 +12,14 @@ import app, hashlib
 from app import STRUCTURED_DATA_DIR, INDEXED_DATA_DIR, SITEMAP_FILE
 
 from llama_index.core.schema import NodeRelationship, RelatedNodeInfo
+
+from urllib.parse import urlparse
+
+def get_base_url(url):
+    parsed_url = urlparse(url)
+    base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
+    return base_url
+
 class VectorstoreIndexer(app.BaseTask): 
 
     def __init__(self, save_directory: str=".", base_url:str =None, do_index = None , refresh_index = True, **kwargs):
@@ -46,12 +54,14 @@ class VectorstoreIndexer(app.BaseTask):
 
                     links = page.get("links",[])
                     for link in links:
-                        if link.get("type","") == "img":
-                            if image_map.get(link["link"]):
-                                link["link"] = image_map.get(link["link"],"UNKNOWN")  
-                            else: 
-                                links.remove(link)
+                        if image_map.get(link["link"]):
+                            link["link"] = image_map.get(link["link"])  
+                            link["type"] = "img"
+                        elif link.get("type","") == "img":
+                            links.remove(link)                                
 
+                    base_url = get_base_url(page.get("source",""))
+                    print("indexing : ", page.get("title",""))                    
                     document = Document(
                             id_ = hashlib.md5(page.get("title","").encode('utf-8')).hexdigest(),
                             # text="Title: " + page.get("title","") + "\n"
@@ -61,14 +71,14 @@ class VectorstoreIndexer(app.BaseTask):
                                 "body" : "",
                                 "source" : page.get("source",""),
                                 "links": json.dumps(links, ensure_ascii=False, indent=4),
-                                "nexts": json.dumps([ page.get("title","") + " > " + subject for subject in page.get("subjects",[])], ensure_ascii=False, indent=4)
+                                "nexts": json.dumps([ page.get("title","") + " > " + subject for subject in page.get("subject_titles",[])], ensure_ascii=False, indent=4)
                             },
                             excluded_llm_metadata_keys=["nexts","links" ],
                             excluded_embed_metadata_keys = [ "links","nexts","source","body"],
                             metadata_template="{key}=>{value}",
                             text_template="Content:\n{content}\n-----\nMetadata:\n{metadata_str}\n=====\n",                            
                     )
-                    print("indexing : ", page.get("title",""))
+
                     documents.append(document)    
                     _prev_id = None
                     _prev_document = None                      
@@ -82,12 +92,17 @@ class VectorstoreIndexer(app.BaseTask):
 
                         _links = subject.get("links",[])
                         for _link in _links:
-                            if _link.get("type","") == "img":
-                                if image_map.get(_link["link"]):
-                                    _link["link"] = image_map.get(_link["link"])  
-                                else: 
-                                    _links.remove(link)
+                            if image_map.get(_link["link"]):
+                                _link["link"] = image_map.get(_link["link"])  
+                                _link["type"] = "img"
+                            elif _link.get("type","") == "img":
+                                _links.remove(_link)
 
+                        _document_source = ""
+                        if subject.get("source","").startswith("#"):
+                            _document_source = page.get("source","") + subject.get("source","")
+                        else:
+                            _document_source = base_url + subject.get("source","")
                         _document = Document(
                                 id_ = _id,
                                 # text="Title: " + page.get("title","") + " > " +  subject.get("title",""),
@@ -95,7 +110,7 @@ class VectorstoreIndexer(app.BaseTask):
                                 text = document.text  + "\n\n" +  subject.get("title","")+ "\n" +  subject.get("summary",""),
                                 metadata={
                                     "body" : subject.get("content"),
-                                    "source" : page.get("source","") + subject.get("source",""),
+                                    "source" : _document_source,
                                     "links": json.dumps(_links, ensure_ascii=False, indent=4),
                                     "nexts": json.dumps([ page.get("title","") + " > " +  subject.get("title","") + " > " + next.get("desc","") for next in page.get("nexts",[])], ensure_ascii=False, indent=4)
                                 },
@@ -116,6 +131,6 @@ class VectorstoreIndexer(app.BaseTask):
             except json.JSONDecodeError as e:
                 print(f"Error decoding JSON from file {json_file}: {e}")                
             except Exception as e:
-                print(f"An error occurred: {e}")             
+                print(f"An error occurred: {e}", page)             
 
         return documents

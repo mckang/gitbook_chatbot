@@ -63,7 +63,7 @@ def count_tokens(text, model_name='cl100k_base'):
 #                 "links"=[
 #                         {{"link":"main.jpg","desc":"서비스 소개 및 장점", "type":"img"}},                                     
 #                         ],                
-#                 "subjects" : ["서비스 소개","서비스 장점"],                                    
+#                 "subject_titles" : ["서비스 소개","서비스 장점"],                                    
 #             }},
 #             "subjects" : [
 #                 {{
@@ -125,7 +125,7 @@ You are an expert in parsing Markdown documents and structuring information in t
             "links":[
                     {{"link":"main.jpg","desc":"Service Introduction and Benefits", "type":"img"}},                                     
                     ],                
-            "subjects" : ["Service Introduction","Service Benefits"],                                    
+            "subject_titles" : ["Service Introduction","Service Benefits"],                                    
         }},
         "subjects" : [
             {{
