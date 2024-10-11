@@ -140,7 +140,7 @@ export default function Markdown({
           if (href?.startsWith(process.env.NEXT_PUBLIC_GITBOOK_URL+"")) {
             return <a href={href} className="italic hover:underline cursor-pointer" onClick={(e) => handleDocumentUrlChange(e, href)}>{children}</a>;
           } else {
-            return <a href={href} className="italic hover:underline cursor-pointer" target={target}>{children}</a>;
+            return <a href={href} className="italic hover:underline cursor-pointer" target={target}>{children} ↗️</a>;
           }
           
         },

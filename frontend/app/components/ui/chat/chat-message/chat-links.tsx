@@ -32,7 +32,7 @@ export function ChatLinks({ data }: { data: LinksData }) {
                   className="italic hover:underline cursor-pointer"
                   // target="_blank"
                   target={target}
-                >{link.desc}</a>
+                >{link.desc} ↗️</a>
               </li>
             )
           }          
