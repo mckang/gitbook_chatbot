@@ -19,7 +19,7 @@ function ModalWindow(props) {
                     height: "70vh",           
                 }} 
                 minWidth="600px" 
-                minHeight="50vh"
+                minHeight="700px"
                 maxWidth="1024px" 
                 maxHeight="90vh"
             >                
