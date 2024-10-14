@@ -32,8 +32,8 @@ export const styles = {
      right: "20px",
      // Size
     //  width: "370px",
-     width: "600px",
-     height: "90vh",
+    //  width: "600px",
+    //  height: "90vh",
     //  maxWidth: "calc(100% - 48px)",
     //  maxHeight: "calc(100% - 48px)",
      backgroundColor: "white",
