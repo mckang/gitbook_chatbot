@@ -110,10 +110,10 @@ def get_postprocessors():
             SimilarityPostprocessorWithAtLeastTopN(similarity_cutoff=0.6, top_n=10),
             # Uses a LLM to re-order nodes by asking the LLM to return the relevant documents and a score of how relevant they are. Returns the top N ranked nodes.
             LLMRerank(
-                top_n=6,
+                top_n=5,
                 choice_select_prompt=choice_select_prompt,
                 parse_choice_select_answer_fn=parse_choice_select_answer_fn,
-                choice_batch_size=10
+                choice_batch_size=20
             )
         ]
     

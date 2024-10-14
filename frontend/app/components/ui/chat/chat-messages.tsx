@@ -78,7 +78,7 @@ export default function ChatMessages(
         })}
         {isPending && (
           <div className="flex justify-center items-center pt-10">
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className="h-4 w-4 animate-spin" />&nbsp;자료 검색중...
           </div>
         )}
       </div>
