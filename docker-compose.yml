@@ -58,9 +58,9 @@ services:
     build:
       context: frontend
       dockerfile: ./Dockerfile
-      args:
-        - NEXT_PUBLIC_CHAT_API=${NEXT_PUBLIC_CHAT_API}
-        - NEXT_PUBLIC_GITBOOK_URL=${DATA_GITBOOK_SITE}
+      # args:
+      #   - NEXT_PUBLIC_CHAT_API=${NEXT_PUBLIC_CHAT_API}
+      #   - NEXT_PUBLIC_GITBOOK_URL=${DATA_GITBOOK_SITE}
     # depends_on:
     #   chromadb:
     #     condition: service_healthy
@@ -68,6 +68,7 @@ services:
     #     condition: service_healthy
     ports:
       - "80:3010"
+    env_file: frontend/.env        
     networks:
       - gitbook_chatbot      
     restart: always
