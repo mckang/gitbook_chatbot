@@ -19,11 +19,17 @@ const IframeComponent: React.FC<{initUrl:string}> = ({initUrl}) => {
 
   useEffect(() => {
     if (documentUrl) {
-      const url = new URL(documentUrl);
-      const pathname = url.pathname;
-      router.push(
-        pathname
-      )
+      try {
+        const url = new URL(documentUrl);
+        const pathname = url.pathname;
+        router.push(
+          pathname
+        )
+        // url을 성공적으로 생성했을 때의 코드
+      } catch (error) {
+        console.error('Invalid URL:', documentUrl);
+        // 에러 처리 코드
+      }
     }
     setLoading(true);
     // 타임아웃 설정 (예: 10초 후 로딩 상태 해제)
