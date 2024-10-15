@@ -1,4 +1,4 @@
-FROM chromadb/chroma:0.5.12 
+FROM chromadb/chroma:0.5.5 
 
 WORKDIR /chroma
 RUN apt -y update

@@ -20,7 +20,7 @@ metadata:
   labels:
     app: socialbiz-be
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: socialbiz-be
@@ -32,8 +32,6 @@ spec:
       containers:
         - name: socialbiz-be-container
           image: 494056189061.dkr.ecr.ap-northeast-2.amazonaws.com/socialbiz-be:latest
-          command: ["sh", "-c"]
-          args: ["-c", "while true; do sleep 3600; done"]
           imagePullPolicy: Always
           ports:
             - name: web
@@ -44,9 +42,11 @@ spec:
               subPath: .env
           resources:
             requests:
-              cpu: "100m"
+              cpu: "500m"
+              memory: "512Mi"
             limits:
-              cpu: "100m"
+              cpu: "500m"
+              memory: "1Gi"
       volumes:
         - name: config-volume
           configMap:
@@ -68,8 +68,8 @@ spec:
           averageUtilization: 50
           type: Utilization
       type: Resource
-  minReplicas: 1
-  maxReplicas: 1
+  minReplicas: 3
+  maxReplicas: 3
   behavior:
     scaleDown:
       policies:

@@ -1,56 +1,51 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: socialbiz-chromadb-service
+  name: socialbiz-fe-service
   namespace: socialbiz-gitbook-chatbot
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
-    app: socialbiz-chromadb
+    app: socialbiz-fe
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8000
+      targetPort: 3010
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: socialbiz-chromadb
+  name: socialbiz-fe
   namespace: socialbiz-gitbook-chatbot
   labels:
-    app: socialbiz-chromadb
+    app: socialbiz-fe
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: socialbiz-chromadb
+      app: socialbiz-fe
   template:
     metadata:
       labels:
-        app: socialbiz-chromadb
+        app: socialbiz-fe
     spec:
       containers:
-        - name: socialbiz-chromadb-container
-          image: 494056189061.dkr.ecr.ap-northeast-2.amazonaws.com/socialbiz-chromadb:latest
+        - name: socialbiz-fe-container
+          image: 494056189061.dkr.ecr.ap-northeast-2.amazonaws.com/socialbiz-fe:latest
           imagePullPolicy: Always
           ports:
             - name: web
-              containerPort: 8000
-          envFrom:
-            - configMapRef:
-                name: chromadb-secret
+              containerPort: 3010
           resources:
             requests:
-              cpu: "500m"
-              memory: "512Mi"
+              cpu: "100m"
             limits:
-              cpu: "500m"
-              memory: "1Gi"
+              cpu: "100m"
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: socialbiz-chromadb-autoscaler
+  name: socialbiz-fe-autoscaler
   namespace: socialbiz-gitbook-chatbot
 spec:
   metrics:
@@ -60,8 +55,8 @@ spec:
           averageUtilization: 50
           type: Utilization
       type: Resource
-  minReplicas: 3
-  maxReplicas: 3
+  minReplicas: 1
+  maxReplicas: 1
   behavior:
     scaleDown:
       policies:
@@ -84,4 +79,4 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: socialbiz-chromadb
+    name: socialbiz-fe
