@@ -6,20 +6,25 @@ import { useRouter } from 'next/navigation';
 
 
 
-const IframeComponent: React.FC = () => {
+const IframeComponent: React.FC<{initUrl:string}> = ({initUrl}) => {
   const router = useRouter();
-  const { documentUrl } = useConfigUI();
+  const { documentUrl:_documentUrl } = useConfigUI();
 
+  const documentUrl = _documentUrl? _documentUrl : initUrl
+
+  // console.log("documentUrl", documentUrl)
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const url = new URL(documentUrl);
-    const pathname = url.pathname;
-    // router.push(
-    //   pathname
-    // )
+    if (documentUrl) {
+      const url = new URL(documentUrl);
+      const pathname = url.pathname;
+      router.push(
+        pathname
+      )
+    }
     setLoading(true);
     // 타임아웃 설정 (예: 10초 후 로딩 상태 해제)
     const timeoutId = setTimeout(() => {
@@ -29,7 +34,7 @@ const IframeComponent: React.FC = () => {
     return () => {
       clearTimeout(timeoutId);
     };    
-  }, [router,documentUrl ]);
+  }, [ documentUrl , router ]);
 
   const handleLoad = () => {
     // console.log("End Loading")

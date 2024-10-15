@@ -6,7 +6,8 @@
     "format:write": "prettier --ignore-unknown --write .",
     "dev": "next dev --experimental-https ",
     "build": "next build",
-    "start": "npx serve@latest out -s --listen tcp://0.0.0.0:3010",
+    "serve": "npx serve@latest out -s --listen tcp://0.0.0.0:3010",
+    "start": "next start -p 3010",
     "lint": "next lint",
     "generate": "tsx app/api/chat/engine/generate.ts"
   },
@@ -26,6 +27,7 @@
     "duck-duck-scrape": "^2.2.5",
     "formdata-node": "^6.0.3",
     "got": "^14.4.1",
+    "langfuse": "^3.27.0",
     "llamaindex": "0.5.19",
     "lucide-react": "^0.446.0",
     "next": "^14.2.4",

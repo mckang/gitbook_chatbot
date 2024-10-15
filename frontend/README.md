@@ -5,6 +5,7 @@
 ```
 npm install
 ```
+// "dev": "next dev --experimental-https ",
 
 ### .env 파일 만들기
 ```
