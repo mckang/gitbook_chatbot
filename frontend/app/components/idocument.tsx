@@ -23,7 +23,7 @@ const IframeComponent: React.FC<{initUrl:string}> = ({initUrl}) => {
         const url = new URL(documentUrl);
         const pathname = url.pathname;
         router.push(
-          documentUrl
+          pathname
         )
         // url을 성공적으로 생성했을 때의 코드
         // console.log("documentUrl", documentUrl)
