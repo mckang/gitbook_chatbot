@@ -15,7 +15,6 @@ export function UserFeedbackComponent(
   props: Pick<ChatHandler, "reload"> & {
     question: Message;
     answer: Message;
-    comment: string;
   },
 ) {
   const [feedback, setFeedback] = useState<string | null>(null); // null, 'good', 'bad'
@@ -29,10 +28,10 @@ export function UserFeedbackComponent(
   };
 
   const sendFeedback = async (
-    score: string,
+    score: string | null,
     question: Message,
     answer: Message,
-    comment: string,
+    comment: string | null,
   ): Promise<void> => {
     try {
       const response = await fetch(`${backend}/api/chat/score`, {
@@ -41,10 +40,10 @@ export function UserFeedbackComponent(
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          score: score,
+          score: score || "",
           question: question,
           answer: answer,
-          comment: comment,
+          comment: comment || "",
         }),
       });
       if (!response.ok) {
@@ -56,12 +55,12 @@ export function UserFeedbackComponent(
   };
 
   const handleSubmitComment = async () => {
-    await sendFeedback(feedback, props.question, props.answer, comment);
+    await sendFeedback(feedback || "", props.question, props.answer, comment);
     setIsModalOpen(false); // 모달 닫기
   };
 
   const handleCancel = async () => {
-    await sendFeedback(feedback, props.question, props.answer);
+    await sendFeedback(feedback, props.question, props.answer, "");
     setIsModalOpen(false); // 모달 닫기
   };
 
