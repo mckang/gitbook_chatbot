@@ -15,6 +15,7 @@ export const styles = {
        // Border
        borderRadius: "10px",
       //  cursor: "pointer",
+      zIndex: 9999
    },
 
    chatWidgetText: {
@@ -36,8 +37,8 @@ export const styles = {
     //  height: "90vh",
     //  minWidth: "350px",
     //  minHeight: "500px",
-     maxWidth: "calc(100% - 48px)",
-     maxHeight: "calc(100% - 48px)",
+    //  maxWidth: "calc(100% - 48px)",
+    //  maxHeight: "calc(100% - 48px)",
      backgroundColor: "white",
      // Border
      borderRadius: "12px",

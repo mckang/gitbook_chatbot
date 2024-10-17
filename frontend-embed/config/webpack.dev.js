@@ -7,8 +7,13 @@ const devConfig = {
   mode: 'development',
   devServer: {
     port: 7003,
+    server: {
+      type: 'https',
+    },
     historyApiFallback: {
-      index: 'index.html',
+      rewrites: [
+        { from: /^\/.*$/, to: '/index.html' }, // 모든 경로를 index.html로 리디렉션
+      ],
     },
   },
   entry: './src/index.js', // 진입점 파일
@@ -17,6 +22,7 @@ const devConfig = {
     filename: 'chatui.bundle.js',
     library: 'ChatUI', // 글로벌로 접근할 수 있도록 설정
     libraryTarget: 'umd', // Universal Module Definition: 다른 환경에서 사용할 수 있도록 함
+    publicPath: '/',
   },  
   plugins: [
   ],

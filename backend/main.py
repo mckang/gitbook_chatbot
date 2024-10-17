@@ -11,6 +11,8 @@ import os
 import uvicorn
 from app.api.routers.chat import chat_router
 from app.api.routers.chat_config import config_router
+from app.api.routers.chat_score import score_router
+
 # from app.api.routers.upload import file_upload_router
 from app.observability import init_observability
 from app.settings import init_settings
@@ -45,6 +47,8 @@ if environment == "dev":
 
 app.include_router(chat_router, prefix="/api/chat")
 app.include_router(config_router, prefix="/api/chat/config")
+app.include_router(score_router, prefix="/api/chat/score")
+
 # app.include_router(file_upload_router, prefix="/api/chat/upload")
 
 if __name__ == "__main__":

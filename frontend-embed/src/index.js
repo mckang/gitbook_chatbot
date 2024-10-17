@@ -12,16 +12,20 @@ class SocialbizChat {
   _starterQuestions;
   _title;
   _imageUrl;
+  _gitbookUrl;
+  _contextPath;
   _windowHeight;
   _windowWidth;
 
-  constructor(backendUrl, starterQuestions, title, imageUrl, windowWidth, windowHeight) {
+  constructor(backendUrl, starterQuestions, title, imageUrl, gitbookUrl, contextPath=null, windowWidth, windowHeight) {
     this._backendUrl = backendUrl;
     this._starterQuestions = starterQuestions;
     this._title = title;
-    this._imageUrl= imageUrl
-    this._windowWidth = windowWidth
-    this._windowHeight = windowHeight
+    this._imageUrl= imageUrl;
+    this._gitbookUrl = gitbookUrl;
+    this._contextPath = contextPath
+    this._windowWidth = windowWidth;
+    this._windowHeight = windowHeight;
     this.init();
   }
 
@@ -40,6 +44,8 @@ class SocialbizChat {
         <ChatUI starterQuestions={this._starterQuestions} 
                 title={this._title} 
                 imageUrl={this._imageUrl} 
+                gitbookUrl={this._gitbookUrl}
+                contextPath={this._contextPath}
                 windowWidth={this._windowWidth} 
                 windowHeight={this._windowHeight}/>
       </div>
@@ -53,10 +59,11 @@ class SocialbizChat {
 }
 
 window.SocialbizChat = (function() {
-  return function({ title="CHATBOT", backendUrl, imageUrl, starterQuestions=[], windowWidth="600px", windowHeight="80vh" }) {
-    // console.log("=======")
+  return function({ title="CHATBOT", backendUrl, imageUrl, gitbookUrl, contextPath, 
+                    starterQuestions=[], windowWidth="600px", windowHeight="80vh" }) {
     if (!window.socialbizChat) {
-      window.socialbizChat = new SocialbizChat(backendUrl, starterQuestions, title, imageUrl, windowWidth, windowHeight); // 처음 호출 시 인스턴스를 생성
+      window.socialbizChat = new SocialbizChat(backendUrl, starterQuestions, title, imageUrl, gitbookUrl, contextPath,
+                                                windowWidth, windowHeight); // 처음 호출 시 인스턴스를 생성
     }
     return window.socialbizChat; // 동일한 인스턴스를 반환
   };
@@ -70,32 +77,20 @@ if (process.env.NODE_ENV === 'development') {
     if (devRoot) {
         window.SocialbizChat({
           title: "🤓 소셜비즈에 대해서 물어보세요~ 🤓",
-          // imageUrl: "https://static.wixstatic.com/media/dfd6da_03bb3d558caf4192b5a17864d5441c33~mv2.png/v1/fill/w_970,h_658,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/Group%204612.png",
-          imageUrl: "https://socialbiz.gitbook.io/~gitbook/image?url=https%3A%2F%2F1292615749-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FkLJJW5RDkaBvxZmPKudR%252Fuploads%252FoQib1yROMUuazPf2pBXq%252Fwelcome.png%3Falt%3Dmedia%26token%3D1a8c3d6d-4542-4ded-bd8d-5d966e2b6368&width=768&dpr=4&quality=100&sign=6fa2a5c2&sv=1",
+          imageUrl: "https://static.wixstatic.com/media/dfd6da_03bb3d558caf4192b5a17864d5441c33~mv2.png/v1/fill/w_970,h_658,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/Group%204612.png",
+          gitbookUrl: "https://socialbiz.gitbook.io",
           backendUrl: "https://socialbiz-chat.nhndata-bigbrother.link:8989",
+          contextPath: "/docs",
+          windowWidth: "600px",
+          windowHeight: "80vh",          
           starterQuestions: [
-            // "소셜비즈가 뭔가ㅇ요1?",
-            // "소셜비즈가 뭔가ㅇ요2 한글 동해물과백두산이 마르고 닳도록?",
-            // "소셜비즈가 뭔가ㅇ요3?",
-            // "소셜비즈가 뭔가ㅇ요4?",
-            "소셜비즈가 뭔가ㅇ요5?",
-            "소셜비즈가 뭔가ㅇ요6?",
-            "소셜비즈가 뭔가ㅇ요7 한글 동해물과백두산이 마르고 닳도록??",
-            "소셜비즈가 뭔가ㅇ요8?",
-            "소셜비즈가 뭔가ㅇ요9?",
-            "소셜비즈가 뭔가ㅇ요10?",
-            "소셜비즈가 뭔가ㅇ요3?",
-            "소셜비즈가 뭔가ㅇ요4?",
-            "소셜비즈가 뭔가ㅇ요5?",
-            "소셜비즈가 뭔가ㅇ요6?",
-            "소셜비즈가 뭔가ㅇ요7?",
-            "소셜비즈가 뭔가ㅇ요8?",
-            "소셜비즈가 뭔가ㅇ요9?",
-            // "소셜비즈가 뭔가ㅇ요10?",        
+            "Socialbiz가 뭔가요?",
+            "Socialbiz를 통해 자동화할 수 있는 메시지 유형은 뭔가요?",
+            "Socialbiz 활용 시나리오를 알려주세요",
+            "Socialbiz 이용 요금은 어떻게 되나요?",
+            "Socialbiz 사용자 인터뷰",
+            "인스타그램 전환 분석도 가능한가요?",            
           ]
         }).render() 
-        // const root = createRoot(devRoot); // React 18 이상에서는 createRoot 사용
-        // root.render(<div className='chatbot'><ChatUI /></div>); // Shadow DOM 안에 ChatContent 컴포넌트 렌더링
-
     }
 }

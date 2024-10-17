@@ -6,15 +6,18 @@ type StarterQuestions = string[]; // string 배열로 가정
 // Context에서 사용할 값의 타입을 정의합니다.
 interface ConfigChatUIType {
   starterQuestions: StarterQuestions;
-  setStarterQuestions: Dispatch<SetStateAction<StarterQuestions>>;
   title: string;
-  setTitle: Dispatch<SetStateAction<string>>;  
   imageUrl: string;
-  setImageUrl: Dispatch<SetStateAction<string>>;  
   windowWidth: string;
-  setWindowWidth: Dispatch<SetStateAction<string>>;   
   windowHeight: string;
-  setWindowHeight: Dispatch<SetStateAction<string>>;     
+  gitbookUrl: string,
+  contextPath: string,
+  documentUrl: string;
+  setDocumentUrl: Dispatch<SetStateAction<string>>;   
+  handleDocumentUrlChange: (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    url: string
+  ) => void;      
 }
 
 // Context 생성 (기본값으로 undefined 설정)
@@ -26,20 +29,43 @@ interface ConfitChatUIProviderProps {
   imageUrl: string;
   windowWidth: string;
   windowHeight: string;
-  children: ReactNode;
+  documentUrl: string; 
+  gitbookUrl: string;
+  contextPath: string;
+  children: ReactNode;  
 }
 
 
 // Provider 컴포넌트 구현
-const ConfigChatUIProvider: FC<ConfitChatUIProviderProps> = ({ starterQuestions: initialQuestions, title: initialTitle, imageUrl: initialImageUrl, windowWidth: initialWidth, windowHeight: initialHeight, children }) => {
-  const [starterQuestions, setStarterQuestions] = useState<StarterQuestions>(initialQuestions);
-  const [title, setTitle] = useState<string>(initialTitle);
-  const [imageUrl, setImageUrl] = useState<string>(initialImageUrl);
-  const [windowWidth, setWindowWidth] = useState<string>(initialWidth);
-  const [windowHeight, setWindowHeight] = useState<string>(initialHeight);
-  
+const ConfigChatUIProvider: FC<ConfitChatUIProviderProps> = ({ 
+                  starterQuestions, 
+                  title, 
+                  imageUrl, 
+                  windowWidth, 
+                  windowHeight, 
+                  gitbookUrl, 
+                  contextPath,
+                  documentUrl:initialDocumentUrl, 
+                  children }) => {
+
+  const [documentUrl, setDocumentUrl] = useState<string>(initialDocumentUrl);
+    
+  const handleDocumentUrlChange = (event: React.MouseEvent<HTMLAnchorElement>, url: string) => {
+    event.preventDefault(); // 기본 동작 방지
+    setDocumentUrl(url);    // 부모 컴포넌트에 URL 전달
+  };
+
   return (
-    <ConfigChatUIContext.Provider value={{starterQuestions, setStarterQuestions, title, setTitle, imageUrl, setImageUrl, windowWidth, setWindowWidth, windowHeight, setWindowHeight}}>
+    <ConfigChatUIContext.Provider 
+      value={{
+        starterQuestions, 
+        title, 
+        imageUrl, 
+        windowWidth, 
+        windowHeight, 
+        gitbookUrl,
+        contextPath,
+        documentUrl, setDocumentUrl, handleDocumentUrlChange}}>
       {children}
     </ConfigChatUIContext.Provider>
   );

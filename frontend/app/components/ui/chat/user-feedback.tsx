@@ -3,9 +3,11 @@ import { Button } from "../button";
 import React, { useState } from 'react';
 import { ChatHandler } from "./chat.interface";
 import { Message } from "ai";
+import { useClientConfig } from "./hooks/use-config";
  
 export function UserFeedbackComponent(props: Pick<ChatHandler, "reload"> & { question:Message, answer:Message }) {
   const [feedback, setFeedback] = useState<string | null>(null); // null, 'good', 'bad'
+  const { backend } = useClientConfig();
 
  
   const handleUserFeedback = async (value: string) => {
@@ -16,7 +18,7 @@ export function UserFeedbackComponent(props: Pick<ChatHandler, "reload"> & { que
 
   const sendFeedback = async (score: string, question: Message, answer: Message): Promise<void> => {
     try {
-      const response = await fetch('/api/feedback', {
+      const response = await fetch(`${backend}/api/chat/score`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

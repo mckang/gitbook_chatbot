@@ -44,7 +44,7 @@ export default function ChatMessages(
   useEffect(() => {
     scrollToBottom();
   }, [messageLength, lastMessage]);
-
+  // console.log("backend",backend)
   useEffect(() => {
     if (!starterQuestions) {
       fetch(`${backend}/api/chat/config`)

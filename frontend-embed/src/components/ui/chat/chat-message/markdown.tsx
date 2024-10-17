@@ -7,6 +7,7 @@ import remarkMath from "remark-math";
 
 import { SourceData } from "..";
 import { CodeBlock } from "./codeblock";
+import { useConfigUI } from "../../../../ChatUIContext";
 
 const MemoizedReactMarkdown: FC<Options> = memo(
   ReactMarkdown,
@@ -77,7 +78,8 @@ export default function Markdown({
   sources?: SourceData;
 }) {
   const processedContent = preprocessContent(content, sources);
-  // console.log(processedContent)
+  const { gitbookUrl, handleDocumentUrlChange } = useConfigUI();
+
   return (
     <MemoizedReactMarkdown
       className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words custom-markdown"
@@ -118,9 +120,13 @@ export default function Markdown({
           );
         },
         a({ href, children }) {
-          const target = "_blank"
+          const target = href?.startsWith(gitbookUrl) ? "gitbook" : "_blank"
 
-          return <a href={href} className="bold italic hover:underline cursor-pointer" target={target}>{children}</a>;
+          if (href?.startsWith(gitbookUrl)) {
+            return <a href={href} className="italic hover:underline cursor-pointer" onClick={(e) => handleDocumentUrlChange(e, href)}>{children}</a>;
+          } else {
+            return <a href={href} className="italic hover:underline cursor-pointer" target={target}>{children} ↗️</a>;
+          }
         },
       }}
     >

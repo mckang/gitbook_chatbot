@@ -229,3 +229,11 @@ class ChatConfig(BaseModel):
                 ]
             }
         }
+
+class ScoreRequest(BaseModel):
+    question: Message
+    answer: Message
+    score: str
+
+class ScoreResponse(BaseModel):
+    message: str
