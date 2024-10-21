@@ -234,6 +234,7 @@ class ScoreRequest(BaseModel):
     question: Message
     answer: Message
     score: str
+    comment: str
 
 class ScoreResponse(BaseModel):
     message: str

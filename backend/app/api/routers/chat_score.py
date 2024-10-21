@@ -15,6 +15,6 @@ async def chat_score(data: ScoreRequest) -> ScoreResponse:
     if langfuse:
         traceId=str(uuid.uuid4())
         langfuse.trace(id=traceId, input=data.question, output=data.answer)
-        langfuse.score(trace_id=traceId,name='user_feedback', value=data.score)
+        langfuse.score(trace_id=traceId,name='user_feedback', value=data.score, comment=data.comment)
 
     return ScoreResponse(message='Feedback received')
