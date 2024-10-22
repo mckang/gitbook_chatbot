@@ -8,10 +8,16 @@ poetry shell
 ```
 
 ### .env 파일 만들기
+
 ```
 LANGFUSE_PUBLIC_KEY=
 LANGFUSE_SECRET_KEY=
 LANGFUSE_HOST=
+
+# 유저 피드백 유입 시 해당 key와 host를 이용해서 Langfuse Score 카테고리로 통신
+SCORE_LANGFUSE_PUBLIC_KEY=
+SCORE_LANGFUSE_SECRET_KEY=
+SCORE_LANGFUSE_HOST=
 
 # The provider for the AI models to use.
 MODEL_PROVIDER=openai
@@ -65,13 +71,15 @@ APP_PORT=8989
 ```
 
 ### Docker 이미지 만들기
+
 ```
-docker build -t socialbiz_chatbot_backend_v1 .
-docker build -t socialbiz_chatbot_backend_chroma_v1 -f ./Dockerfile-w-chromadb .
+docker build --platform linux/amd64 --no-cache -t socialbiz_chatbot_backend_v1 .
+docker build --platform linux/amd64 --no-cache -t socialbiz_chatbot_backend_chroma_v1 -f ./Dockerfile-w-chromadb .
 
 ```
 
 ### Backend 인스턴스 실행하기
+
 ```
 docker run --name socialbiz_chatbot_backend \
 --rm -d -p 8989:8989 \
@@ -99,6 +107,7 @@ socialbiz_chatbot_backend_chroma_v1
 ```
 
 ### Backend 인스턴스 실행하기
+
 ```
 docker run --name socialbiz_chatbot_backend \
 --rm -d -p 8989:8989 \
@@ -110,8 +119,8 @@ socialbiz_chatbot_backend_v1
 참고 : 운영환경 -e ENVIRONMENT='prod'
 ```
 
-
 ### 브라우져 열기
+
 ```
 [오픈API](http://127.0.0.1:8989/docs)
 ```
