@@ -101,6 +101,7 @@ export default function ChatMessages(
             stop={props.stop}
             showReload={showReload}
             showStop={showStop}
+            messages={props.messages}
           />
         </div>
       )}

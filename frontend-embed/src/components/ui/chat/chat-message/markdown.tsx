@@ -78,7 +78,7 @@ export default function Markdown({
   sources?: SourceData;
 }) {
   const processedContent = preprocessContent(content, sources);
-  const { gitbookUrl, handleDocumentUrlChange } = useConfigUI();
+  const { gitbookUrl, embedDocSite, handleDocumentUrlChange } = useConfigUI();
 
   return (
     <MemoizedReactMarkdown
@@ -122,7 +122,7 @@ export default function Markdown({
         a({ href, children }) {
           const target = href?.startsWith(gitbookUrl) ? "gitbook" : "_blank"
 
-          if (href?.startsWith(gitbookUrl)) {
+          if (embedDocSite && href?.startsWith(gitbookUrl)) {
             return <a href={href} className="italic hover:underline cursor-pointer" onClick={(e) => handleDocumentUrlChange(e, href)}>{children}</a>;
           } else {
             return <a href={href} className="italic hover:underline cursor-pointer" target={target}>{children} ↗️</a>;
