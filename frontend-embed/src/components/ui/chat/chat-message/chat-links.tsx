@@ -3,7 +3,7 @@ import { LinksData, type ImageData } from "../index";
 import { useConfigUI } from "../../../../ChatUIContext";
 
 export function ChatLinks({ data }: { data: LinksData }) {
-  const { gitbookUrl, handleDocumentUrlChange } = useConfigUI();
+  const { gitbookUrl, embedDocSite, handleDocumentUrlChange } = useConfigUI();
   return (
     <div className="flex flex-col space-y-2">
       <strong style={{fontSize: '16px'}}>[[참고 링크]]</strong>
@@ -12,7 +12,7 @@ export function ChatLinks({ data }: { data: LinksData }) {
         data.map((link, index)=>{
           const target = link.url.startsWith(gitbookUrl) ? "gitbook" : "_blank"
 
-          if (link.url?.startsWith(gitbookUrl)) {
+          if (embedDocSite && link.url?.startsWith(gitbookUrl)) {
             return (
               <li key={index}>
                 <a

@@ -13,6 +13,7 @@ interface ConfigChatUIType {
   gitbookUrl: string,
   contextPath: string,
   documentUrl: string;
+  embedDocSite: boolean;
   setDocumentUrl: Dispatch<SetStateAction<string>>;   
   handleDocumentUrlChange: (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -32,6 +33,7 @@ interface ConfitChatUIProviderProps {
   documentUrl: string; 
   gitbookUrl: string;
   contextPath: string;
+  embedDocSite: boolean;
   children: ReactNode;  
 }
 
@@ -46,6 +48,7 @@ const ConfigChatUIProvider: FC<ConfitChatUIProviderProps> = ({
                   gitbookUrl, 
                   contextPath,
                   documentUrl:initialDocumentUrl, 
+                  embedDocSite,
                   children }) => {
 
   const [documentUrl, setDocumentUrl] = useState<string>(initialDocumentUrl);
@@ -65,6 +68,7 @@ const ConfigChatUIProvider: FC<ConfitChatUIProviderProps> = ({
         windowHeight, 
         gitbookUrl,
         contextPath,
+        embedDocSite,
         documentUrl, setDocumentUrl, handleDocumentUrlChange}}>
       {children}
     </ConfigChatUIContext.Provider>

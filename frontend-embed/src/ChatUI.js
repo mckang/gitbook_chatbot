@@ -24,7 +24,7 @@ function removeFirstDocs(docsPattern, url) {
   return url;
 }
 
-const ChatUI = ({starterQuestions=[], title="", imageUrl="", gitbookUrl="", contextPath=null, windowWidth="600px", windowHeight="80vh"}) => {
+const ChatUI = ({starterQuestions=[], title="", imageUrl="", gitbookUrl="", contextPath=null, windowWidth="600px", windowHeight="80vh", embedDocSite=true}) => {
   const pathname =window.location.pathname;  
 
   const [initUrl, setInitUrl] = useState('');
@@ -45,8 +45,9 @@ const ChatUI = ({starterQuestions=[], title="", imageUrl="", gitbookUrl="", cont
                 windowWidth={windowWidth} 
                 windowHeight={windowHeight} 
                 documentUrl={initUrl}
-                contextPath={contextPath}>
-          <IframeComponent initUrl={initUrl}/>  
+                contextPath={contextPath}
+                embedDocSite={embedDocSite}>
+          {embedDocSite ? <IframeComponent initUrl={initUrl}/>  : <></> }
           <ChatWidget />
         </ConfigChatUIProvider>
     </root.div>
