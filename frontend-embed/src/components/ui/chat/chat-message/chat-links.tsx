@@ -12,7 +12,9 @@ export function ChatLinks({ data }: { data: LinksData }) {
         data.map((link, index)=>{
           const target = link.url.startsWith(gitbookUrl) ? "gitbook" : "_blank"
 
-          if (embedDocSite && link.url?.startsWith(gitbookUrl)) {
+          // if (embedDocSite && link.url?.startsWith(gitbookUrl)) {
+          if (link.url?.startsWith(gitbookUrl)) {
+
             return (
               <li key={index}>
                 <a

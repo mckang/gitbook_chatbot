@@ -1,9 +1,9 @@
-import { styles } from "./styles";
 import React, { useState, useRef, useEffect} from "react";
 
 // import icon
 import { BsFillChatFill } from "react-icons/bs";
 import ModalWindow from './ModalWindow'
+import ContentWindowComponent from "../ui/chat/chat-content-window";
 
 function ChatWidget() {
   const [hovered, setHovered] = useState(false);
@@ -16,13 +16,30 @@ function ChatWidget() {
       {/* Chat Button Component */}
       <div     
         style={{
-          ...styles.chatWidget,
-          ...{ border: hovered ? "1px solid black" : "" },
+          ...{ border: hovered ? "1px solid black" : "" },     
+          // Position
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          backgroundColor: "#cb71e3",
+          // Padding
+          paddingLeft: "18px",
+          paddingRight: "18px",
+          paddingTop: "7px",
+          paddingBottom: "7px",
+          // Border
+          borderRadius: "10px",
+          //  cursor: "pointer",
+          zIndex: 9999                  
         }}
         ref={widgetRef}
       >
-        <ModalWindow visible={visible}/>
-
+        <div className="flex flex-row gap-4" 
+            style={{position: 'fixed', bottom: '70px', right: '20px'}}
+        >
+          <ContentWindowComponent/>   
+          <ModalWindow visible={visible}/>
+        </div>
         {/* Inner Container */}
         <div         
             style={{
@@ -37,7 +54,12 @@ function ChatWidget() {
             {/* Button Icon */}
             <BsFillChatFill size={20} color="white" />
             {/* Button Text */}
-            <span style={styles.chatWidgetText}>Chat Now!!</span>            
+            <span style={{    
+              color: "white",
+              fontSize: "15px",
+              marginLeft: "5px",}}>
+                Chat Now!!
+            </span>            
         </div>
       </div>
     </div>

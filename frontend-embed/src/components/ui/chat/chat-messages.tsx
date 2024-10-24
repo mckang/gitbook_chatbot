@@ -11,6 +11,7 @@ import Tooltip from '../Tooltip'
 
 import React from "react";
 import { useConfigUI } from "../../../ChatUIContext";
+import ContentWindowComponent from "./chat-content-window";
 
 export default function ChatMessages(
   props: Pick<
@@ -21,6 +22,8 @@ export default function ChatMessages(
   const { backend } = useClientConfig();
   const { starterQuestions: customQuestions, title, imageUrl } = useConfigUI();
   const [starterQuestions, setStarterQuestions] = useState<string[]>();
+
+
 
   const scrollableChatContainerRef = useRef<HTMLDivElement>(null);
   const messageLength = props.messages.length;
@@ -135,7 +138,7 @@ export default function ChatMessages(
             </div>
           </div>
         </div>
-      )}
+      )}     
     </div>
   );
 }

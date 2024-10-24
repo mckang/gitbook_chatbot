@@ -10,6 +10,7 @@ import { useState } from "react";
 import { Button } from "../../button";
 import { ChatHandler } from "../chat.interface";
 import { useClientConfig } from "../hooks/use-config";
+import React from "react";
 
 export function UserFeedbackComponent(
   props: Pick<ChatHandler, "reload"> & {

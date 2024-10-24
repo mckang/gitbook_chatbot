@@ -108,6 +108,8 @@
   left: 25%;
   width: 50%;
   height: 50%;
+  /* max-width: 768px;
+  max-height: 1024px; */
   background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
@@ -145,6 +147,25 @@
     height: 100%;
   }
 }
+
+.zoomed-image-container-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  z-index: 1100; /* 컨테이너보다 높은 z-index */
+  transition: transform 0.2s ease;
+}
+
+.zoomed-image-container-close-button:hover {
+  transform: scale(1.2);
+}
+
+
 
 .zoomed-image {
   max-width: 90vw;

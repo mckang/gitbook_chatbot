@@ -14,6 +14,8 @@ interface ConfigChatUIType {
   contextPath: string,
   documentUrl: string;
   embedDocSite: boolean;
+  showContent: boolean;
+  setShowContent: Dispatch<SetStateAction<boolean>>;   
   setDocumentUrl: Dispatch<SetStateAction<string>>;   
   handleDocumentUrlChange: (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -52,10 +54,14 @@ const ConfigChatUIProvider: FC<ConfitChatUIProviderProps> = ({
                   children }) => {
 
   const [documentUrl, setDocumentUrl] = useState<string>(initialDocumentUrl);
+  const [showContent, setShowContent] = useState(false);
     
   const handleDocumentUrlChange = (event: React.MouseEvent<HTMLAnchorElement>, url: string) => {
     event.preventDefault(); // 기본 동작 방지
     setDocumentUrl(url);    // 부모 컴포넌트에 URL 전달
+    if (!embedDocSite){
+      setShowContent(true)
+    }
   };
 
   return (
@@ -69,6 +75,7 @@ const ConfigChatUIProvider: FC<ConfitChatUIProviderProps> = ({
         gitbookUrl,
         contextPath,
         embedDocSite,
+        showContent, setShowContent,
         documentUrl, setDocumentUrl, handleDocumentUrlChange}}>
       {children}
     </ConfigChatUIContext.Provider>
