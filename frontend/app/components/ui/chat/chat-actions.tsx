@@ -1,9 +1,9 @@
-import { PauseCircle, RefreshCw } from "lucide-react";
+import { PauseCircle } from "lucide-react";
 
 import { Button } from "../button";
 import { ChatHandler } from "./chat.interface";
 
-import { UserFeedbackComponent } from "./user-feedback"
+import { UserFeedbackComponent } from "./user-feedback";
 
 export default function ChatActions(
   props: Pick<ChatHandler, "messages" | "stop" | "reload"> & {
@@ -11,10 +11,9 @@ export default function ChatActions(
     showStop?: boolean;
   },
 ) {
-  if( !props.showStop && props.showReload) {
+  if (!props.showStop && props.showReload) {
     // console.log("messages",props.messages[props.messages.length-2])
     // console.log("messages",props.messages[props.messages.length-1])
-
   }
   return (
     <div className="space-x-4">
@@ -26,7 +25,11 @@ export default function ChatActions(
       )}
       {props.showReload && (
         <>
-        <UserFeedbackComponent question={props.messages[props.messages.length-2]} answer={props.messages[props.messages.length-1]} reload={props.reload}/>
+          <UserFeedbackComponent
+            question={props.messages[props.messages.length - 2]}
+            answer={props.messages[props.messages.length - 1]}
+            reload={props.reload}
+          />
         </>
       )}
     </div>

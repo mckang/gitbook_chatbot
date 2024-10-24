@@ -5,36 +5,44 @@
 ```
 npm install
 ```
+
 // "dev": "next dev --experimental-https ",
 
 ### .env 파일 만들기
+
 ```
 # The backend API for chat endpoint.
 NEXT_PUBLIC_CHAT_API=http://localhost:8989/api/chat
 NEXT_PUBLIC_GITBOOK_URL=https://socialbiz.gitbook.io
 
-# Let's the user change indexes in LlamaCloud projects
+# Let the users change indexes in LlamaCloud projects
 NEXT_PUBLIC_USE_LLAMACLOUD=false
+
+# Record users' feedback on Langfuse
+NEXT_LANGFUSE_PUBLIC_KEY=
+NEXT_LANGFUSE_SECRET_KEY=
+NEXT_LANGFUSE_HOST=
 ```
 
 ### 개발서버 실행하기
+
 ```
 npm run dev
 ```
 
 Open [http://localhost:3010](http://localhost:3010) with your browser to see the result.
 
-
-
 ### Docker 이미지 만들기
+
 ```
-docker build \
+docker build --platform linux/amd64 --no-cache \
 --build-arg NEXT_PUBLIC_CHAT_API=http://localhost:8989/api/chat \
 --build-arg NEXT_PUBLIC_GITBOOK_URL=https://socialbiz.gitbook.io \
 -t gitbook_chatbot_frontend_v1 .
 ```
 
 ### Backend 인스턴스 실행하기
+
 ```
 docker run --name gitbook_chatbot_frontend \
 --rm -d -p 3010:3010 \
