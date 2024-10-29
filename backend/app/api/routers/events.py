@@ -15,20 +15,20 @@ class CallbackEvent(BaseModel):
     event_type: CBEventType
     payload: Optional[Dict[str, Any]] = None
     event_id: str = ""
-
+    
     def get_retrieval_message(self) -> dict | None:
         if self.payload:
             nodes = self.payload.get("nodes")
             if nodes:
-                msg = f"Retrieved {len(nodes)} sources to use as context for the query"
+                msg = f"{len(nodes)} 개 문서 검색 완료"
             else:
-                msg = f"Retrieving context for query: '{self.payload.get('query_str')}'"
+                msg = f"질문에 대한 정보 검색: '{self.payload.get('query_str')}'"
             return {
                 "type": "events",
                 "data": {"title": msg},
             }
         else:
-            return None
+            return None     
 
     def get_tool_message(self) -> dict | None:
         func_call_args = self.payload.get("function_call")
@@ -83,7 +83,7 @@ class CallbackEvent(BaseModel):
                 case "function_call":
                     return self.get_tool_message()
                 case "agent_step":
-                    return self.get_agent_tool_response()
+                    return self.get_agent_tool_response()         
                 case _:
                     return None
         except Exception as e:
@@ -126,8 +126,8 @@ class EventCallbackHandler(BaseCallbackHandler):
         payload: Optional[Dict[str, Any]] = None,
         event_id: str = "",
         **kwargs: Any,
-    ) -> None:
-        event = CallbackEvent(event_id=event_id, event_type=event_type, payload=payload)
+    ) -> None:        
+        event = CallbackEvent(event_id=event_id, event_type=event_type, payload=payload)      
         if event.to_response() is not None:
             self._aqueue.put_nowait(event)
 

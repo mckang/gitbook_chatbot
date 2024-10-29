@@ -1,13 +1,17 @@
 "use client";
 
-import { useChat } from "ai/react";
+import { Message, useChat } from "ai/react";
 import React, { useState, useRef, useEffect} from "react";
 import { ChatInput, ChatMessages } from "./ui/chat";
 import { useClientConfig } from "./ui/chat/hooks/use-config";
+import { useLocalStorage } from "./ui/chat/hooks/use-storage";
+
 
 export default function ChatSection() {
   const { backend } = useClientConfig();
   const [requestData, setRequestData] = useState<any>();
+  const [localMessages,_] = useLocalStorage<Message[]>('messages', []);
+
   const {
     messages,
     input,
@@ -39,6 +43,10 @@ export default function ChatSection() {
     //   console.log('Finish reason:', finishReason);
     // },    
   });
+
+  useEffect(()=>{
+    setMessages(localMessages)
+  },[])
 
   return (
     <div className="space-y-2 w-full h-full flex flex-col">

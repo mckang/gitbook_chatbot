@@ -24,7 +24,7 @@ function removeFirstDocs(docsPattern, url) {
   return url;
 }
 
-const ChatUI = ({starterQuestions=[], title="", imageUrl="", gitbookUrl="", contextPath=null, windowWidth="600px", windowHeight="80vh", embedDocSite=true}) => {
+const ChatUI = ({starterQuestions=[], title="", imageUrl="", gitbookUrl="", contextPath=null, windowWidth=600, windowHeight=600, embedDocSite=true}) => {
   const pathname =window.location.pathname;  
 
   const [initUrl, setInitUrl] = useState('');

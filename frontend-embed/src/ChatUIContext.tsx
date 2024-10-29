@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, FC, Dispatch, SetStateAction, useContext } from 'react';
+import React, { createContext, useState, ReactNode, FC, Dispatch, SetStateAction, useContext, useRef } from 'react';
 
 // starterQuestions의 타입을 명확하게 정의합니다.
 type StarterQuestions = string[]; // string 배열로 가정
@@ -8,15 +8,19 @@ interface ConfigChatUIType {
   starterQuestions: StarterQuestions;
   title: string;
   imageUrl: string;
-  windowWidth: string;
-  windowHeight: string;
+  windowWidth: Number;
+  windowHeight: Number;
   gitbookUrl: string,
   contextPath: string,
   documentUrl: string;
   embedDocSite: boolean;
   showContent: boolean;
+  chatboxWidth: Number;
+  chatboxHeight: Number;  
   setShowContent: Dispatch<SetStateAction<boolean>>;   
   setDocumentUrl: Dispatch<SetStateAction<string>>;   
+  setChatboxWidth: Dispatch<SetStateAction<Number>>;   
+  setChatboxHeight: Dispatch<SetStateAction<Number>>;     
   handleDocumentUrlChange: (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     url: string
@@ -30,8 +34,8 @@ interface ConfitChatUIProviderProps {
   starterQuestions: StarterQuestions;
   title: string;
   imageUrl: string;
-  windowWidth: string;
-  windowHeight: string;
+  windowWidth: Number;
+  windowHeight: Number;
   documentUrl: string; 
   gitbookUrl: string;
   contextPath: string;
@@ -53,14 +57,34 @@ const ConfigChatUIProvider: FC<ConfitChatUIProviderProps> = ({
                   embedDocSite,
                   children }) => {
 
+  const popupRef = useRef<Window | null>(null);
   const [documentUrl, setDocumentUrl] = useState<string>(initialDocumentUrl);
   const [showContent, setShowContent] = useState(false);
+  const [chatboxWidth, setChatboxWidth] = useState<Number>(windowWidth);
+  const [chatboxHeight, setChatboxHeight] = useState<Number>(windowHeight);
+
     
   const handleDocumentUrlChange = (event: React.MouseEvent<HTMLAnchorElement>, url: string) => {
     event.preventDefault(); // 기본 동작 방지
     setDocumentUrl(url);    // 부모 컴포넌트에 URL 전달
     if (!embedDocSite){
-      setShowContent(true)
+      const popupWidth = 600;
+      const popupHeight = 800;
+  
+      // 현재 윈도우의 크기를 기준으로 중앙에 위치 계산
+      const left = window.innerWidth / 2 - popupWidth / 2;
+      const top = window.innerHeight / 2 - popupHeight / 2;      
+      const popupFeatures = `width=${popupWidth},height=${popupHeight},left=${left},top=${top},resizable=yes,scrollbars=yes`;
+      // 팝업 창이 열려 있는지 확인
+      if (popupRef.current && !popupRef.current?.closed) {
+        // 팝업 창이 열려 있고 닫혀 있지 않다면 주소만 변경
+        popupRef.current.location.href = url;
+        popupRef.current.focus(); // 팝업 창을 앞으로 가져옴
+      } else {
+        // 팝업 창이 없거나 닫혀 있으면 새로 열기
+        popupRef.current = window.open(url, '_blank', popupFeatures);
+      }
+
     }
   };
 
@@ -75,6 +99,10 @@ const ConfigChatUIProvider: FC<ConfitChatUIProviderProps> = ({
         gitbookUrl,
         contextPath,
         embedDocSite,
+        chatboxWidth,
+        chatboxHeight,
+        setChatboxHeight,
+        setChatboxWidth,
         showContent, setShowContent,
         documentUrl, setDocumentUrl, handleDocumentUrlChange}}>
       {children}

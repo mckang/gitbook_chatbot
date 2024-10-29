@@ -8,7 +8,7 @@ const Tooltip = ({ text, children }) => {
 
   return (
     <div 
-      style={{ position: 'relative', display: 'inline-block' }}
+      style={{ position: 'relative', display: 'inline-block', zIndex: 2000 }}
       className='w-full'
       onMouseEnter={showTooltip} 
       onMouseLeave={hideTooltip}

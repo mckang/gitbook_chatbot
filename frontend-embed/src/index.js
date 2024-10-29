@@ -63,7 +63,7 @@ class SocialbizChat {
 
 window.SocialbizChat = (function() {
   return function({ title="CHATBOT", backendUrl, imageUrl, gitbookUrl, contextPath, 
-                    starterQuestions=[], windowWidth="600px", windowHeight="80vh", embedDocSite=true }) {
+                    starterQuestions=[], windowWidth=600, windowHeight=600, embedDocSite=true }) {
     if (!window.socialbizChat) {
       window.socialbizChat = new SocialbizChat(backendUrl, starterQuestions, title, imageUrl, gitbookUrl, contextPath,
                                                 windowWidth, windowHeight, embedDocSite); // 처음 호출 시 인스턴스를 생성
@@ -84,8 +84,8 @@ if (process.env.NODE_ENV === 'development') {
           gitbookUrl: "https://socialbiz.gitbook.io",
           backendUrl: "https://socialbiz-chat.nhndata-bigbrother.link:8989",
           // contextPath: "/docs",
-          windowWidth: "600px",
-          windowHeight: "80vh",          
+          windowWidth: 400,
+          windowHeight: 600,          
           starterQuestions: [
             "Socialbiz가 뭔가요?",
             "Socialbiz를 통해 자동화할 수 있는 메시지 유형은 뭔가요?",

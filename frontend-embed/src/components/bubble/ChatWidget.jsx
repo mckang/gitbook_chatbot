@@ -4,13 +4,23 @@ import React, { useState, useRef, useEffect} from "react";
 import { BsFillChatFill } from "react-icons/bs";
 import ModalWindow from './ModalWindow'
 import ContentWindowComponent from "../ui/chat/chat-content-window";
+import { useLocalStorage } from "../ui/chat/hooks/use-storage";
+import { Message } from 'ai/react'
 
 function ChatWidget() {
   const [hovered, setHovered] = useState(false);
   const [visible, setVisible] = useState(false);
-
+  const [localMessages,_] = useLocalStorage('messages', []);
   const widgetRef = useRef(null);
 
+  useEffect(()=>{
+    console.log(localMessages)
+    if(localMessages.length > 0){
+      setVisible(true)
+    }
+  },[])
+  console.log(localMessages)
+  console.log(visible)
   return (
     <div>
       {/* Chat Button Component */}

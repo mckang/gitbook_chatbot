@@ -66,8 +66,19 @@ class VercelStreamResponse(StreamingResponse):
         async def _chat_response_generator():
             final_response = ""
             async for token in response.async_response_gen():
+                if not event_handler.is_done:
+                    event_handler.is_done = True
+                    yield VercelStreamResponse.convert_data(
+                                        {
+                                            "type": "events",
+                                            "data": {"title": "답변 생성을 시작합니다."},
+                                        }
+                                    )                     
                 final_response += token
                 yield VercelStreamResponse.convert_text(token)
+            # the text_generator is the leading stream, once it's finished, also finish the event stream
+            # event_handler.is_done = True
+            
 
             # links = [ nodeWithScore.node.metadata.get('links',[]) for nodeWithScore in response.source_nodes if nodeWithScore.score >= 10.0]
             links = [ nodeWithScore.node.metadata.get('links',[]) for nodeWithScore in response.source_nodes if "(%s)"%nodeWithScore.node.metadata.get('source','') in final_response]
@@ -104,6 +115,12 @@ class VercelStreamResponse(StreamingResponse):
 
                 yield VercelStreamResponse.convert_data(
                     {
+                        "type": "events",
+                        "data": {"title": "참조 이미지 링크를 생성합니다."},
+                    }
+                )  
+                yield VercelStreamResponse.convert_data(
+                    {
                         "type": "images",
                         "data": _imgs
                     }
@@ -118,6 +135,13 @@ class VercelStreamResponse(StreamingResponse):
                          "url": link_url,            
                          "desc": link.get("desc")         
                     })                                                      
+
+                yield VercelStreamResponse.convert_data(
+                    {
+                        "type": "events",
+                        "data": {"title": "참조 사이트 링크를 생성합니다."},
+                    }
+                )  
 
                 yield VercelStreamResponse.convert_data(
                     {
@@ -136,26 +160,16 @@ class VercelStreamResponse(StreamingResponse):
                 if len(questions) > 0:
                     yield VercelStreamResponse.convert_data(
                         {
+                            "type": "events",
+                            "data": {"title": "추가 질문을 생성합니다."},
+                        }
+                    )                      
+                    yield VercelStreamResponse.convert_data(
+                        {
                             "type": "suggested_questions",
                             "data": questions,
                         }
                     )                
-
-            # the text_generator is the leading stream, once it's finished, also finish the event stream
-            event_handler.is_done = True
-
-            # Yield the source nodes
-            # yield cls.convert_data(
-            #     {
-            #         "type": "sources",
-            #         "data": {
-            #             "nodes": [
-            #                 SourceNodes.from_source_node(node).model_dump()
-            #                 for node in response.source_nodes
-            #             ]
-            #         },
-            #     }
-            # )
 
         # Yield the events from the event handler
         async def _event_generator():
@@ -165,6 +179,7 @@ class VercelStreamResponse(StreamingResponse):
                     yield VercelStreamResponse.convert_data(event_response)
 
         combine = stream.merge(_chat_response_generator(), _event_generator())
+
         is_stream_started = False
         async with combine.stream() as streamer:
             async for output in streamer:

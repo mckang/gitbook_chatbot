@@ -11,7 +11,9 @@ import Tooltip from '../Tooltip'
 
 import React from "react";
 import { useConfigUI } from "../../../ChatUIContext";
-import ContentWindowComponent from "./chat-content-window";
+// import ContentWindowComponent from "./chat-content-window";
+import { useLocalStorage } from "./hooks/use-storage";
+import { Message } from "ai";
 
 export default function ChatMessages(
   props: Pick<
@@ -21,6 +23,7 @@ export default function ChatMessages(
 ) {
   const { backend } = useClientConfig();
   const { starterQuestions: customQuestions, title, imageUrl } = useConfigUI();
+  const [_, saveMessages] = useLocalStorage<Message[]>('messages', []);
   const [starterQuestions, setStarterQuestions] = useState<string[]>();
 
 
@@ -52,10 +55,6 @@ export default function ChatMessages(
   }, [messageLength, lastMessage]);
 
   useEffect(() => {
-    console.log("title",title)
-    console.log("title",imageUrl)
-
-    // console.log("customQuestions",customQuestions)
     
     if(customQuestions.length > 0){
       setStarterQuestions(customQuestions.length > 10 ? customQuestions.slice(0, 10) : customQuestions)
@@ -73,9 +72,28 @@ export default function ChatMessages(
     }
   }, []);
 
+  useEffect(() => {
+
+    if (showReload) {
+      // console.log(props.messages)
+      saveMessages(props.messages.slice(-10))
+    }    
+  }, [showReload]);
+
+  const divStyle = {
+    width: "90%",
+    height: "400px",
+    backgroundImage: `url(${imageUrl})`, // 여기에 이미지 경로를 지정
+    // backgroundSize: "cover", // 이미지가 div의 크기에 맞춰지도록 함
+    // backgroundPosition: "center", // 이미지의 중심을 div의 중앙에 위치
+    backgroundSize: "contain", // 이미지가 div의 크기에 맞춰지도록 함
+    backgroundPosition: "center", // 이미지의 중심을 div의 중앙에 위치
+    backgroundRepeat: "no-repeat", // 이미지를 반복하지 않도록 설정    
+  };  
+
   return (
     <div
-      className="flex-1 w-full rounded-xl bg-white p-4 shadow-xl relative overflow-y-auto"
+      className="flex-1 w-full rounded-xl bg-white p-2 shadow-xl relative overflow-y-auto"
       ref={scrollableChatContainerRef}
     >
       <div className="flex flex-col gap-5 divide-y">
@@ -93,7 +111,7 @@ export default function ChatMessages(
         })}
         {isPending && (
           <div className="flex justify-center items-center pt-10">
-            <Loader2 className="h-4 w-4 animate-spin" />
+            <Loader2 className="h-4 w-4 animate-spin" /> <strong style={{fontSize: '14px'}}>  자료 검색 중 ...</strong> 
           </div>
         )}
       </div>
@@ -113,9 +131,9 @@ export default function ChatMessages(
           <div className="bg-purple-600 text-white p-4 rounded-t-lg w-full text-center">
             <h1 className="text-lg font-semibold">{title}</h1>
           </div>          
-          <div className="flex-1 py-4 justify-center items-center">
+          <div style={divStyle} className="flex-1 py-4 justify-center items-center">
             <div className="flex h-full text-center  justify-center  items-center">
-              <img style={{width: "100%", height: "auto"}} src={imageUrl}/>
+              {/* <img style={{width: 400, height: "auto"}} src={imageUrl}/> */}
             </div>
           </div>        
           <div className="flex-none bottom-6 left-0 w-full">

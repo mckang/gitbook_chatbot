@@ -26,10 +26,11 @@ function ModalWindow(props) {
                         width: windowWidth,
                         height: windowHeight,           
                     }} 
-                    minWidth="600px" 
-                    minHeight="700px"
+                    minWidth="400px" 
+                    minHeight="600px"
                     maxWidth="1024px" 
                     maxHeight="90vh"
+                    
                 >                                     
                     <ChatSection />
                 </Resizable>     

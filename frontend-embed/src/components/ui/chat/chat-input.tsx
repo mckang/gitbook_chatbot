@@ -6,6 +6,8 @@ import { ChatHandler } from "./chat.interface";
 import { useFile } from "./hooks/use-file";
 import React from "react";
 import { House } from "lucide-react";
+import { useLocalStorage } from "./hooks/use-storage";
+import { Message } from "postcss";
 
 const ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg", "csv", "pdf", "txt", "docx"];
 
@@ -36,6 +38,8 @@ export default function ChatInput(
     reset,
     getAnnotations,
   } = useFile();
+  const [_, saveMessages] = useLocalStorage<Message[]>('messages', []);
+
 
   // default submit function does not handle including annotations in the message
   // so we need to use append function to submit new message with annotations
@@ -82,7 +86,7 @@ export default function ChatInput(
       className="rounded-xl bg-white p-4 shadow-xl space-y-4 shrink-0"
     >
       <div className="flex w-full items-start justify-between gap-4 ">
-        <Button type="button" disabled={props.isLoading} onClick={(e)=>{e.preventDefault(); props.setMessages([])}}>
+        <Button type="button" disabled={props.isLoading} onClick={(e)=>{e.preventDefault(); props.setMessages([]); saveMessages([])}}>
           <House className="h-4 w-4"/>
         </Button>        
         <Input
@@ -94,7 +98,7 @@ export default function ChatInput(
           onChange={props.handleInputChange}
         />
         <Button type="submit" disabled={props.isLoading || !props.input.trim()}>
-          Send message
+          Send
         </Button>
       </div>
     </form>
